@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Duck shoot</title>
+	<style>
+		.box{
+ 			background-size: 100% 100%;
+ 			height: 100px;
+ 			width: 100px;
+ 			position: absolute;
+		}
+
+		body{
+			background-image: url(phon.png);
+			background-size: 100%;
+
+		}
+
+		span{
+
+		}
+
+	</style>
+</head>
+<body>
+		<h1>Очки: 
+			<span class="corElem">0</span>
+		</h1> 
+
+				
+	<script>
+		let score=0
+		let elem= document.querySelector(".corElem")
+
+
+		
+
+
+
+
+
+		function getRandom(num){
+			let rand = Math.random() * num;
+			let round = Math.round(rand);
+			return round;
+		}
+
+		let y = [200, 400, 600];
+		let img_url = ["1.png", "2.png", "3.png"];
+
+
+
+		function create(){
+			let div = document.createElement("div");
+			document.body.appendChild("div");
+			div.classList.add("box");
+			div.style.left = getRandom(1280) + "px";
+			div.style.top = y[getRandom(2)] + "px"
+			let randomImg = getRandom(2);
+			div.style.backgroundImage = "url(" + img_url[randomImg] + ")";
+
+			if(randomImg == 0){
+				div.type = "norm";
+			}else if(randomImg == 1){
+				div.type = "good";
+			}else if(randomImg == 2){
+				div.type = "bad";
+			}
+
+			div.onclick = function(){
+				div.style.display = "none";
+
+				if(div.type == "norm"){
+					score = score + 1;
+					elem.innerHTML = score
+				}else if(div.type == "good"){
+					score = score + 2;
+					elem.innerHTML = score
+				}else if(div.type == "bad"){
+					score = score - 2;
+					elem.innerHTML = score
+				}
+
+			}
+		}
+
+		function finish(){
+			clearInterval(int1);
+			alert("Конец игры(")
+			if(score >= 30){
+				alert("Победа!");
+			}
+		}
+
+		let int1 = setInterval(create, 500);
+		setTimeout(finish, 5000);
+	</script>
+</body>
+</html>
